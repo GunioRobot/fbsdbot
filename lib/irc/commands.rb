@@ -36,7 +36,7 @@ module FBSDBot
       def connected?
         @connected
       end
-      
+
       def reconnect?
         !@shutdown
       end
@@ -56,7 +56,7 @@ module FBSDBot
       def normalize_message(message, limit=nil, &block)
         message.scan(/[^\n\r]{1,#{limit||LIMIT_MESSAGE}}/, &block)
       end
-      
+
       # Give Op to user in channel
       # User can be a nick or IRC::User, either one or an array.
       def send_multiple_mode(channel, pre, flag, targets)
@@ -78,8 +78,8 @@ module FBSDBot
           }
         }
       end
-      
-  
+
+
       # same as privmsg except it's formatted for ACTION
       def send_action(message, *recipients)
         normalize_message(message) { |message|
@@ -88,7 +88,7 @@ module FBSDBot
           }
         }
       end
-  
+
       # sends a notice to receiver (or multiple if receiver is array of receivers)
       # formatted=true allows usage of ![]-format commands (see IRCmessage.getFormatted)
       # messages containing newline automatically get splitted up into multiple messages.
@@ -100,79 +100,79 @@ module FBSDBot
           }
         }
       end
-      
+
       # set your status to away with reason 'reason'
       def send_away(reason=nil)
         return back if reason.nil?
         send_raw(AWAY, reason)
       end
-      
+
       # reset your away status to back
       def send_back
         send_raw(AWAY)
       end
-      
+
       # Send a "who" to channel/user
       def send_who(target)
         send_raw(WHO, target)
       end
-  
+
       # Send a "whois" to server
       def send_whois(nick)
         send_raw(WHOIS, nick)
       end
-  
+
       # send the quit message to the server
       def send_quit(reason="leaving")
         @shutdown = true # good idea to do this first..
         send_raw(QUIT, reason)
         close_connection_after_writing # after telling the server, we can just close the connection.
       end
-  
+
       # send a ping
       def send_ping(*args)
         send_raw(PING, *args)
       end
-      
+
       # Give Op to user in channel
       # User can be a nick or IRC::User, either one or an array.
       def send_op(channel, *users)
         send_multiple_mode(channel, '+', 'o', users)
       end
-  
+
       # Take Op from user in channel
       # User can be a nick or IRC::User, either one or an array.
       def send_deop(channel, *users)
         send_multiple_mode(channel, '-', 'o', users)
       end
-  
+
       # Give voice to user in channel
       # User can be a nick or IRC::User, either one or an array.
       def send_voice(channel, *users)
         send_multiple_mode(channel, '+', 'v', users)
       end
-  
+
       # Take voice from user in channel.
       # User can be a nick or IRC::User, either one or an array.
       def send_devoice(channel, *users)
         send_multiple_mode(channel, '-', 'v', users)
       end
-  
+
       # Set ban in channel to mask
       def send_ban(channel, *masks)
         send_multiple_mode(channel, '+', 'b', masks)
       end
-  
+
       # Remove ban in channel to mask
       def send_unban(channel, *masks)
         send_multiple_mode(channel, '-', 'b', masks)
       end
-      
+
       # kick user in channel with reason
       def send_kick(user, channel, reason)
         send_raw(KICK, channel, user, reason)
       end
-      
+
       # send a mode command to a channel
       def send_mode(channel, *mode)
         if mode.empty? then

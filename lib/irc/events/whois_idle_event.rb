@@ -8,6 +8,6 @@ module FBSDBot
       @server = opts[:server]
       @to, @nick, @seconds = opts[:params]
     end
-    
+
   end
 end

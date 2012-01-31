@@ -15,5 +15,5 @@
     :channels:
       - "#bot-test.no"
 
-:master: 
+:master:
   :hostmask_exp: !ruby/regexp /^change me$/

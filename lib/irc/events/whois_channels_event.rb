@@ -8,6 +8,6 @@ module FBSDBot
       @server = opts[:server]
       @to, @nick, @channel_string = opts[:params]
     end
-    
+
   end
 end

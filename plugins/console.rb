@@ -2,7 +2,7 @@ FBSDBot::Plugin.define(:console) do
 
   class ConsoleHandler < EM::Connection
     include EM::Protocols::LineText2
-    
+
     attr_accessor :worker
 
     EOF = "\xFF"
@@ -18,13 +18,13 @@ FBSDBot::Plugin.define(:console) do
     HELP
 
     # TODO: kick/ban
-    
+
     def receive_line(data)
       return unless worker
-      
+
       case data
       when /^say (#\S+) (.*)$/
-        worker.send_privmsg($2, $1) 
+        worker.send_privmsg($2, $1)
       when /^action (#\S+) (.*)$/
         worker.send_action($2, $1)
       when /^join (#\S+)$/
@@ -60,5 +60,5 @@ FBSDBot::Plugin.define(:console) do
       handler.prompt
     end
   end
-  
+
 end

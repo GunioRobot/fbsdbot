@@ -70,7 +70,7 @@ VALUE target_type(VALUE self, VALUE data)
 }
 
 
-void Init_parser() 
+void Init_parser()
 {
 	VALUE FBSDBot = rb_define_module("FBSDBot");
 	VALUE IRC	  = rb_define_module_under(FBSDBot, "IRC");

@@ -125,28 +125,28 @@ describe "authentication" do
       user = User.new(:nick => 'foo', :user => 'bar', :host => 'baz' )
       user.set_flag(:admin)
       user.save
-      
+
       event = mock('event')
       event.stub!(:message).and_return("!auth add /foobar/")
       event.stub!(:user).and_return(user)
       event.stub!(:channel?).and_return(false)
       event.should_receive(:reply) { |string| string.should =~ %r{Added user \d+ for /foobar/} }
-      
+
       @plugin.on_cmd_auth(event)
     end
 
-    # TODO: this behaviour should probably be changed / improved 
+    # TODO: this behaviour should probably be changed / improved
     it "should not add the user if the regexp is in use by an existing user" do
       user = User.new(:hostmask_exp => /foobar/ )
       user.set_flag(:admin)
       user.save
-      
+
       event = mock('event')
       event.stub!(:message).and_return("!auth add /foobar/")
       event.stub!(:user).and_return(user)
       event.stub!(:channel?).and_return(false)
       event.should_receive(:reply).with("User already added for /foobar/")
-      
+
       @plugin.on_cmd_auth(event)
     end
 

@@ -7,10 +7,10 @@ module FBSDBot
       super(conn)
       @server = opts[:server]
       @to, @channel, @set_by = opts[:params][0,3]
-      
+
       # TODO: time format might be server-specific
-      @set_at = Time.at(opts[:params].last.to_i) 
+      @set_at = Time.at(opts[:params].last.to_i)
     end
-    
+
   end
 end

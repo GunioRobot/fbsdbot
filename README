@@ -1,4 +1,4 @@
-install dependencies with ruby-gems: 
+install dependencies with ruby-gems:
 
 sudo gem install eventmachine
 sudo gem install rspec

@@ -9,6 +9,6 @@ module FBSDBot
       @to, nick, user, host, _, @real_name = opts[:params]
       @user = fetch_user(nick, user, host)
     end
-    
+
   end
 end

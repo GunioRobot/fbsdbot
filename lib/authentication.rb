@@ -11,7 +11,7 @@ FBSDBot::Plugin.define(:authentication) do
   #
   #  hook
   #
-  
+
   def on_cmd_auth(event)
     case event.message
     when /^!auth whoami/
@@ -32,7 +32,7 @@ FBSDBot::Plugin.define(:authentication) do
   # ============
   # = commands =
   # ============
-  
+
   def whoami(event)
     event.reply "#{event.user.object_id} :: #{event.user.hostmask}"
   end
@@ -54,21 +54,21 @@ FBSDBot::Plugin.define(:authentication) do
     if FBSDBot::User.datastore.fetch_all.any? { |e| e.hostmask_exp == rx }
       return event.reply("User already added for #{rx.inspect}")
     end
-    
+
     u = FBSDBot::User.new(:hostmask_exp => rx).save
     event.reply "Added user #{u.object_id} for #{rx.inspect}"
   end
-  
+
   #
   # !auth remove <user-id>
-  # 
+  #
   def remove(event, user_id)
     return unless check_privilege(event)
     return event.reply("usage: !auth remove <user-id>") if user_id !~ /^\d+$/
-    
+
     user = FBSDBot::User.datastore.fetch_all.find { |e| e.object_id == user_id.to_i }
     Log.debug(:found_user => user)
-    
+
     if user.nil?
       event.reply "User not found. Use `!auth list` to show all users."
     elsif user.master?
@@ -82,13 +82,13 @@ FBSDBot::Plugin.define(:authentication) do
     end
   end
 
-  
+
   #
   # !auth list
-  # 
+  #
   def list(event)
     return unless check_privilege(event)
-    
+
     users = FBSDBot::User.datastore.fetch_all
     users.each do |user|
       event.reply("#{user.object_id} :: #{user.hostmask_exp} :: #{user.hostmask}")
@@ -97,7 +97,7 @@ FBSDBot::Plugin.define(:authentication) do
 
   #
   # !auth set
-  # 
+  #
   def set(event, args)
     return unless check_privilege(event)
     unless args =~ /^(\d+) (admin|user)/
@@ -123,11 +123,11 @@ FBSDBot::Plugin.define(:authentication) do
 
     event.reply "User #{user.object_id} is now #{flag}"
   end
-  
+
   # ===========
   # = helpers =
   # ===========
-  
+
   def string_to_regexp(pattern)
     raise "Invalid regexp" unless pattern =~ %r{\A/(.*)/([imx]*)\z}
     ptrn, flags = $1, $2.split(//)
@@ -138,22 +138,22 @@ FBSDBot::Plugin.define(:authentication) do
 
     re = Regexp.new(ptrn, f)
   end
-  
+
   def check_privilege(event)
     result = true
-    
+
     # must be admin
     unless event.user.admin?
-      event.reply("You can't do that!") 
+      event.reply("You can't do that!")
       result = false
     end
-    
+
     # must be in private
     if event.channel?
-      event.reply("This command must be used in private.") 
+      event.reply("This command must be used in private.")
       result = false
     end
-    
+
     return result
   end
 

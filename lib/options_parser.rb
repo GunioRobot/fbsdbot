@@ -20,11 +20,11 @@ op = OptionParser.new do |o|
   o.on "-C", "--c-parser", "Use the C parser extension" do
     opts[:c_parser] = true
   end
-  
+
   o.on "-c", "--color", "Add colors to the log output" do
     opts[:color] = true
   end
-  
+
   o.on "-d", "--debug", "Show debug output" do
     $DEBUG = true
   end

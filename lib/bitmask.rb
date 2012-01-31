@@ -8,22 +8,22 @@ module FBSDBot
     def set_flag(key)
       @bitmask |= flag_for_key(key)
     end
-    
+
     def unset_flag(key)
       @bitmask ^= flag_for_key(key)
     end
-    
+
     def has_flag?(key)
       flag = flag_for_key(key)
       @bitmask & flag == flag
     end
-    
+
     private
-    
+
     def flag_for_key(key)
       flag = self.class::FLAGS[key]
       raise "bad flag #{key.inspect}" unless flag
-      
+
       flag
     end
   end

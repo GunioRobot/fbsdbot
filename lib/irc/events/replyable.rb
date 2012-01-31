@@ -3,10 +3,10 @@ module FBSDBot
   module Replyable
 
     attr_reader :to, :message, :user
-    
+
     def setup(opts)
       @to, @message  = opts[:params]
-      
+
       args = opts.values_at(:nick, :user, :host)
       unless args.include?(nil)
         @user = fetch_user(*args)
@@ -20,6 +20,6 @@ module FBSDBot
     def reply(string)
       @worker.send_privmsg string.to_s, reply_to
     end
-    
+
   end
 end
